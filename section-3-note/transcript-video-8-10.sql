@@ -1,7 +1,7 @@
 /*** ORACLE DATABASE ARCHITECTURE OVERVIEW -> really complex 
 
 
-MEMORY OPERATIONS EXPLAINATION
+video 8-9: MEMORY OPERATIONS EXPLAINATION
 
 1. CLIENT AREA 
 Oracle is a multi user database ( up to Millions) 
@@ -51,7 +51,7 @@ This is extremely useful when something unexpected occurs like a system failure.
 
 
 
-DISK OPERATIONS EXPLAINATION
+video 9: DISK OPERATIONS EXPLAINATION
 
 1. DATA FILE 
 The first one is disks that include the "data" files. The actual data is stored in here. Our tables, triggers, functions, etc., all the database objects are stored in these files.
@@ -66,4 +66,46 @@ Database disks have some interaction with the PGAs too. As you can see from the 
 Redo log buffer is for the instant redo operations.
 The redo log data in the redo log buffer is constantly stored in the redo log discs and deleted from the redo log buffer.
 
+
+
+
+
+video 10: DATABASE BLOCKS EXPLAINATION
+
+1. DATABASE BLOCKS OVERVIEW 
+- All data is stored in blocks in both disc and memory. A block the smallest unit of the database for storing the data. A block is a logical unit that consists of multiple Operating System blocks.
+- There can be millions or billions of blocks and they store the actual data in it.
+- A block can have a whole table, or a couple rows of a table. Or sometimes, a block can have rows of different tables when multiple tables are clustered.
+- A block has a specific size and cannot be extended directly.
+- A block can have a size from 2KB to 32KB but generally, it is set to 8KB by default. This size is specified by the DBAs on the database installation. 8KB is not a small size.
+- It can have hundreds or maybe thousands of rows based on the size of your row data of course. Because depending on the row size of your tables, your rows can be a couple bytes or even a couple bits.
+- ABlock can have the index data. 
+- So, a block consists of the block header and the rows.
+- A block header includes :
+  + block type information (row / index )
+  + information of tables which have the rows in it
+  + the row directory, means the addresses of each row in this block. 
+- We will call these addresses as ROWIDs. With this address, we can directly go to the exact location of that row and read it easily.
+- A block header has lots of data, so it has about 100 bytes of data generally.
+- The rest of the block has the rows and some free spaces. 
+- These white areas next to the rows and at the bottom of all rows represents space here.
+- These spaces are important. Because, if you make an update and increase the size of a row, it will be costly to take this row and carry to another place in that block or maybe to another block. In order to do that, Oracle leaves some space after each row.
+- But sometimes the new row size can exceed the total size of the row and the space after it. If such thing happens, if there is enough space in the block, this row is deleted from here and written into the big space area. 
+- But if there is not enough space in the block, this time it is written into another block.
+- Actually I said that, there are some spaces after the rows. But this is not true for all the times.
+- It is generally like so, but when you are creating a table, you can use PCTFREE or PCTUSE parameters to specify how much free space will be left in a block. So you can change these free space size or you can say that do not leave any space, just use all the space. 
+- But if you don’t leave any free space in a block, each update will most probably change the place of the row, and this will decrease the performance. Because the IO operations will increase significantly and IO means cost in tuning. And moreover, as we will learn later, the place of the rows might be stored in many places like indexes etc. So these indexes may need to be updated because of the address changes of the rows.
+- After all the rows, there is an extra space left. This space is for the new inserts. Even if there might be more than one table’s rows in a block, it is not preferred. This can only occur only if these tables are clustered.
+- If a table is not clustered, a block will most probably have one table’s rows. Because reading a table’s rows from one block will be faster than reading from multiple blocks.
+- When Oracle tries to find your row, it first finds the block that your row is in, and then goes to the address of that row with using the rowid.
+- A row also has some additional data in it. A row area in a block does not consist of only the column data.
+
+2. ROW AREA IN BLOCK OVERVIEW 
+- A row also has some additional data in it. A row area in a block does not consist of only the column data.
+   + row overhead
+   + number of columns in this row
+   + cluster key id if it is clustered,
+   + rowid of chained row pieces (if any) 
+   + column length (how many bytes will be read for that column)
+   + column values 
 */
