@@ -1,0 +1,16 @@
+OPTIMIZER HINTS 
+
+- use hints for enforce optimizer use something than it want to do 
+	+ reasons: maybe statistics are old 
+- sometime, optimizer may NOT follow your hint when it thinks the hint is not reasonable 
+- hints can be operating on a sing table, multi tables, a query block, a specific statement... 
+- categories of hints : 
+	+ hints for optimization approaches 
+	+ access paths hints 
+	+ query transformation hints 
+	+ join order hints 
+	+ join operation hints
+	+ parallel execution hint 
+	
+
+- when data volume, structure ... usually change, usually do not need to use hints 

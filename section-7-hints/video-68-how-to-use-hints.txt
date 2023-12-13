@@ -1,0 +1,6 @@
+SELECT /*+ hint_name(p1 p2 p3..) */ first_name from employees 
+
+- can use after SELECT UPDADATE DELETE 
+- if have alias, need to use it instead  of table name 
+- only 1 hint area 
+- be careful when using hints !!! => can be ignore or increase COST $$ 
