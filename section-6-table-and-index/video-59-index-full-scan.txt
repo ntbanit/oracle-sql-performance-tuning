@@ -1,0 +1,16 @@
+INDEX FULL SCAN 
+- all the rows of the tables are indexed by their indexes 
+- when optimizer uses the index full scan ? 
+	+ query has ORDER BY clause only with the indexed columns 
+		. reading whole index (sorted) then read the table 
+		  faster >>>> read the whole table then sorted
+			.. must write index order by it have 
+			example: 
+			CREATE INDEX PROD_CUST_IDX ON SALES (PROD_ID, CUST_ID) ;
+			SELECT PROD_ID, CUST_ID FROM SALES ORDER BY PROD_ID, CUST_ID; -- triggered 
+			SELECT PROD_ID, CUST_ID FROM SALES ORDER BY CUST_ID, PROD_ID; -- DONT triggered 
+			
+	+ query has GROUP BY clause only with the indexed columns 
+		. no need to order exactly like ORDER BY 
+	+ query requires SORT-MERGE JOIN 
+		. ORDER is important, same as ORDER BY 

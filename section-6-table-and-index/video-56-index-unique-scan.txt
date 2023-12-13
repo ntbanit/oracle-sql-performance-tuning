@@ -1,0 +1,17 @@
+IN B-TREE INDEX 
+
+YOU ALREADY HOW A BINARY TREE WORKS, FIND A VALUE IN B-TREE IS SIMILAR THING !
+
+
+- apply when a column is primary key / unique key 
+- AND it is guaranteed that the result will return only 1 ROWID ( or 0) 
+=> INDEX UNIQUE SCAN 
+
+
+condition to optimizer choose this access path :
+- is it have ALL COLUMNS of are primary key index or unique key index in predicates ? 
+- doese it all use with EQUALITY operator?
+
+example: CREATE INDEX PROD_CUST_IDX ON SALES (PROD_ID, CUST_ID) ;
+		SELECT PROD_ID, CUST_ID FROM SALES WHERE  PROD_ID = 1 AND CUST_ID = 1;
+			 

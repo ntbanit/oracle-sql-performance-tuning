@@ -1,0 +1,14 @@
+INDEX RANGE SCAN -> when there is a bound (example >, <= between and ...) 
+- can be for both B-Tree and Bitmap 
+- can be apply to unique or non-unique indexes 
+- normarlly data stored in ascending ordered 
+- if have ORDER BY or GROUP BY with index column, range scan will not do any sort. it's already sorted. it should not have null values 
+	+ if it have another column is NOT INDEX, it will be sorted => COST $$ 
+- if ORDER BY have DESC keyword, it will read the data in descending order 
+- you can create index as descending 
+	+ example: CREATE INDEX index_name ON employees(department_id DESC)
+
+- function-based indexes can be accessed as inde3x range scan 
+
+- if wildcard characters are writen on the right, it will perform index range scan 
+	+ example : WHERE department_name LIKE 'NAME%'

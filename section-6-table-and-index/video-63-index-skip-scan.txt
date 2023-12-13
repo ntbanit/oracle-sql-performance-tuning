@@ -1,0 +1,17 @@
+INDEX SKIP SCAN 
+- if where clause dont have indexed columns, optimizer will not use the indexes 
+
+INDEX SKIP SCAN : dont create index from all rows because of costs 
+
+- if the second, third.. column of a composite index is used as an access predicate, the optimizer will consider the INDEX SKIP SCAN 
+
+- Skip the LEAVES OF B-TREE which do not have any chance to have any matching rows 
+
+- Advantages 
+	+ Help to reduce number of indexes 
+	+ Decrease the index space 
+	+ Increases the overall performance by reducing index maintenance 
+	
+Example : index on (gender, female) 
+select * from employees where are between 20 and 30 ; 
+-> go to b-tree and skip some intervals 

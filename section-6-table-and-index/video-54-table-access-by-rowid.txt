@@ -1,0 +1,12 @@
+TABLE ACCESS BY ROW ID 
+
+occurs when 
+- rowid is used in the where clause directly 
+	+ use only in case rowid NEVER CHANGE 
+		. rowid can change: 
+			.. row is uppdated, bigger and dont fit the block anymore -> move to another block 
+			.. when table is export and import again 
+- by an INDEX SCAN operation 
+	+ use in case index return rowid 
+	
+	\

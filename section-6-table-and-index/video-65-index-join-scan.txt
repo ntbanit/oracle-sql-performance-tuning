@@ -1,0 +1,12 @@
+INDEX JOIN SCAN 
+
+- if the combination of multi indexes store the columns of a query, the optimizer jill join them and read the data from that join 
+
+	example: select column1, column2 from table1 ; -- (column1 is indexed1, column2 is indexed2) => may have INDEX JOIN SCAN 
+
++ the combination of indexes must have every column of the select clause ?? 
+	example:
++ there is no join limit. more than 2 indexes can be joined 
++ there might be any index access path before INDEX JOIN SCAN 
++ if you write ROWID in the select clause, it will NOT perform IJ-Scan
+ 

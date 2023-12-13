@@ -1,0 +1,17 @@
+FULL TABLE SCAN 
+
+some cases, when NOT SELECTIVE, read full table may faster than index 
+cuz 
+1. a block usually have data of the same table 
+	-> read WHOLE BLOCK faster I/O 
+2. blocks will be in same TABLESPACE (close to each other and link) 
+	-> read WHOLE TABLE will be faster if need more data in this (example : 88%) 
+
+
+but when need only 1% or 5% data in table -> use index will be faster 
+
+REASON TO CHOOSE FULL TABLE SCAN 
+- if there is no suitable index 
+- if the selectivity is low 
+- if the table is very small (even if there is a index) 
+- if full table scan hint is used 

@@ -1,0 +1,17 @@
+INDEX FAST FULL SCAN 
+
+- if the query requests only the columns existing in the index, it uses INDEX FAST FULL SCAN 
+
+- can be apply to both b-tree and bitmap indexes 
+
+- hints can be used to force the optimizer to use INDEX FAST FULL SCAN  
+
+- diffrent from INDEX FULL SCAN vs INDEX FAST FULL SCAN 
+	+ IFFS always read from the index 
+	  IFS may read from the table, too 
+	+ IFS read blocks 1 by 1 requentially 
+	  IFFS read multi simultaneously, in unordered manner 
+	+ IFFS faster than IFS in most cases 
+	+ IFS can eliminate sorting 
+	  IFFS can not 
+	  
