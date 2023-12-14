@@ -1,4 +1,6 @@
-/* EQUAL JOIN => common type, can use all join methods (4) */
+/* EQUAL JOIN => common type, can use all join methods (4) 
+In equijoins, the sort merge join is not an efficient way. Because it first sorts the sources. And this increases the cost. And in equijoins, there is no need to sort. ? 
+*/
 select * from employees e, departments d where e.department_id = d.department_id;
 
 
