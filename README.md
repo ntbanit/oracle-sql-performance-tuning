@@ -4,7 +4,7 @@ course : https://udemy.com/course/sql-performance-tuning-masterclass/learn/lectu
 
 # helpful query but HARD to searching 
 *TKPROF can also check plan in trace file for a PL/SQL*
-<pre><code>
+```
 -- find directory of trace files 
 select value from v$diag_info where name ='Diag Trace';
 -- create a postfix in trace file 
@@ -15,4 +15,6 @@ alter session set sql_trace = true;
 select * from hr.employees ;
 -- turn off tracing 
 alter session set sql_trace = false;
-</code></pre>
+```sql 
+
+# 
